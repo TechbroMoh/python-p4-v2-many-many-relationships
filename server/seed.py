@@ -3,15 +3,17 @@
 
 import datetime
 from app import app
-from models import db, Employee, Meeting, Project
+from models import db, Employee, Meeting, Project, employee_meetings
 
 with app.app_context():
 
     # Delete all rows in tables
+    db.session.query(employee_meetings).delete()
+    db.session.commit()
     Employee.query.delete()
     Meeting.query.delete()
     Project.query.delete()
-
+    
     # Add employees
     e1 = Employee(name="Uri Lee", hire_date=datetime.datetime(2022, 5, 17))
     e2 = Employee(name="Tristan Tal", hire_date=datetime.datetime(2020, 1, 30))
